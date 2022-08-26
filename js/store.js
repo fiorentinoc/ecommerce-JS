@@ -13,7 +13,7 @@ let contenedorProductos = document.getElementById('productos')
 
 setTimeout( function() {
     let productos = sistema.leerTodo()
-    console.log(sistema.leerTodo());
+    console.log("Productos Cargados : "+ JSON.stringify(productos));
     for (const producto of productos){
         if (producto.precio == 0){
             console.log("Consulte Precio")
@@ -47,14 +47,15 @@ setTimeout( function() {
                             
                         }
                     }
-                    console.log("Render Finalizado")
-}, 1000)
-                
-let botones = document.getElementsByClassName('agregar')
-for (let i=0; i<botones.length; i++){
-    botones[i].addEventListener('click', agregarAlCarrito)
-}
-let cantArtCarrito = 0
+                    console.log("Render de Productos Finalizado")
+                    // Evento para botones Agregar
+                    let botones = document.getElementsByClassName('agregar')
+                    for (let i=0; i<botones.length; i++){
+                        botones[i].addEventListener('click', agregarAlCarrito)
+                        //botones[i].addEventListener('click', console.log("click"))
+                    }
+                    
+                    let cantArtCarrito = 0
 let totalCarr = -100
 let promo = 100
 let articulosEnCarro = []
@@ -62,10 +63,10 @@ let articulosEnCarro = []
 
 let carrito = document.getElementById('carrito')
 //function agregarAlCarrito(e) {
-//    let bCarro = document.getElementById('bCarro')
-//    let total = document.getElementById('total')
-//    let cp = document.getElementById('cp')
-//    let artPorAgregar = productos.find(producto => producto.id == e.target.id)
+    //    let bCarro = document.getElementById('bCarro')
+    //    let total = document.getElementById('total')
+    //    let cp = document.getElementById('cp')
+    //    let artPorAgregar = productos.find(producto => producto.id == e.target.id)
 //    console.log('Test: '+artPorAgregar)
 //    /* let cantU = document.getElementById('inp'+artPorAgregar.id).value */
 //    cantArtCarrito ++      //Contador de Articulos
@@ -83,7 +84,7 @@ let carrito = document.getElementById('carrito')
 //        let obj = {item: artPorAgregar, cant: 1}
 //        articulosEnCarro.push(obj)
 //    } else {
-//        cantU ++
+    //        cantU ++
 //    }
 //    let subTotal = cantU * artPorAgregar.precio
 //    //Render de cada articulo incorporado
@@ -102,17 +103,17 @@ function carroRender(art, cantU, subTotal){
     let item = document.createElement('li')
     item.className = 'list-group-item d-flex justify-content-between lh-sm'
     item.innerHTML = `
-        
-            <div>
-                <h6 class="my-0">${art.title}</h6>
-                <small class="text-muted"></small>
-                <small class="text-muted"></small>
-            </div>
-            <small class="text-muted">${cantU}</small>
+    
+    <div>
+    <h6 class="my-0">${art.title}</h6>
+    <small class="text-muted"></small>
+    <small class="text-muted"></small>
+    </div>
+    <small class="text-muted">${cantU}</small>
             <small class="text-muted">$${art.precio}</small>
             <span class="text-muted">$${subTotal}</span>
         
-    `
+            `
     carrito.prepend(item)
     
 }
@@ -128,22 +129,22 @@ btnFinCom.addEventListener('click', () => {
         text: 'Esperamos su regreso',
         showConfirmButton: false,
         timer: 2500
-        })
+    })
 })
 
 
-    
 
-        /* <div class="col">
+
+/* <div class="col">
         </div> */
-
+        
 
         /* 
         <h3>${producto.mod}</h3>
         <p>Precio: ${producto.precio}</p>
         <p>Quedan ${producto.stk} un.</p> */
 
-
+        
         let artCarrito = [];
         /* const divisa = '€'; */
         const divisa = 'U$D';
@@ -152,6 +153,7 @@ btnFinCom.addEventListener('click', () => {
         const DOMtotal = document.querySelector('#total');
         const DOMbotonVaciar = document.querySelector('#boton-vaciar');
         const miLocalStorage = window.localStorage;
+        let descuento = 0.0
         // Funciones
         
         /**
@@ -199,6 +201,7 @@ btnFinCom.addEventListener('click', () => {
         function agregarAlCarrito(e) {
             // Anyadimos el Nodo a nuestro carrito
             let artPorAgregar = productos.find(producto => producto.id == e.target.id)
+            console.log("Agregando: " +artPorAgregar)
             artCarrito.push(artPorAgregar.id)
             console.log("Articulos en carrito :"+artCarrito)
             //carrito.push(evento.target.getAttribute('marcador'))
@@ -206,7 +209,7 @@ btnFinCom.addEventListener('click', () => {
             renderizarCarrito();
             // Actualizar info en localStorage
             guardarCarritoEnLocalStorage();
-        
+            
         }
         
         /**
@@ -232,24 +235,51 @@ btnFinCom.addEventListener('click', () => {
                 }, 0);
                 // Creamos el nodo del item del carrito
                 const miNodo = document.createElement('li');
-                miNodo.classList.add('list-group-item', 'text-right', 'mx-2');
-                miNodo.textContent = `${numeroUnidadesItem} x   ${miItem[0].title}   -   ${miItem[0].precio}${divisa}`;
+                miNodo.classList.add('list-group-item', 'text-start');
+                //miNodo.textContent = `${numeroUnidadesItem} x &nbsp; ${miItem[0].title}   -   ${miItem[0].precio}${divisa}`;
+                //miNodo.innerHTML = `${numeroUnidadesItem} x &nbsp; ${miItem[0].title}   -   ${miItem[0].precio}${divisa}`;
+                let subTotal = miItem[0].precio * numeroUnidadesItem
+                miNodo.innerHTML = `<table class="table table-borderless">
+                                        <tr>
+                                            <td>${numeroUnidadesItem} x</td>
+                                            <td>${miItem[0].title}</td>
+                                            <td>${miItem[0].precio}${divisa}</td>
+                                            <td>${subTotal}</td>
+                                            <td><div class="btn btn-danger mx-2 eliminar" data-item="${miItem[0].id}"></div></td>
+                                        </tr>
+                                    </table>`;
+
                 // Boton de borrar
-                const btnBorrar = document.createElement('button');
-                btnBorrar.classList.add('btn', 'btn-danger', 'mx-5', 'eliminar');
+                /* const btnBorrar = document.createElement('button');
+                btnBorrar.classList.add('btn', 'btn-danger', 'mx-2', 'eliminar');
                 btnBorrar.textContent = ''
                 
                 
                 btnBorrar.style.marginLeft = '1rem';
-                btnBorrar.dataset.item = item;
-                btnBorrar.addEventListener('click', borrarItemCarrito);
+                btnBorrar.dataset.item = item; */
+                //btnBorrar.addEventListener('click', borrarItemCarrito);
+                
+                //miNodo.appendChild(btnBorrar);
                 // Mezclamos nodos
-                miNodo.appendChild(btnBorrar);
-                DOMcarrito.appendChild(miNodo);
+                DOMcarrito.prepend(miNodo);
             });
+
             // Renderizamos el precio total en el HTML
             DOMtotal.textContent = calcularTotal();
         }
+        //Cargar CODIGO PROMOCIONAL
+        let CODE = document.querySelector('#code')
+        CODE.addEventListener('keyup', (e)=>{
+            let codeText = e.path[0].value
+            if (codeText == "CODER") {
+                descuento = 0.8
+            } else {
+                descuento = 1
+            }
+            let d = -((1 - descuento) * calcularTotal()) 
+            document.querySelector('#desc').innerHTML = d.toFixed(2)
+            recalcularTotal()
+        })
         
         /**
          * Evento para borrar un elemento del carrito
@@ -281,11 +311,21 @@ btnFinCom.addEventListener('click', () => {
                 });
                 // Los sumamos al total
                 return total + miItem[0].precio;
-            }, 0).toFixed(2);
+            }, 0).toFixed(2) ;
+        }
+
+        //Recalcular TOTAL
+        function recalcularTotal() {
+            let reto = document.querySelector('#desc').innerHTML
+            //console.log(typeof (calcularTotal()))
+            //console.log(typeof reto)
+            let t = parseFloat(calcularTotal()) + parseFloat(reto)
+            DOMtotal.textContent = t
         }
         
+        
         /**
-         * Vacia el carrito y vuelve a dibujarlo
+         * Vacia el carrito y lo Renderiza
          */
         function vaciarCarrito() {
             // Limpiamos los productos guardados
@@ -295,14 +335,14 @@ btnFinCom.addEventListener('click', () => {
             // Borrar localStorage
             localStorage.clear();
         }
-
+        
         /**
          * Guarda array Carrito en LocalStorage 
          */
         function guardarCarritoEnLocalStorage() {
             miLocalStorage.setItem('carrito', JSON.stringify(artCarrito));
         }
-
+        
         /**
          * Recupera array Carrito del LocalStorage 
          */
@@ -325,3 +365,5 @@ btnFinCom.addEventListener('click', () => {
         //renderizarProductos();
         cargarCarritoDeLocalStorage();
         renderizarCarrito();
+    }, 1000)
+

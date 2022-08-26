@@ -99,16 +99,18 @@
                   <span class="text-primary">Producto</span>
                   <span class="text-primary">Precio unit</span>
                   <span class="text-primary">Subtotal</span>
+                  <span class="text-primary">Eliminar</span>
                 </h6>
-                <ul class="list-group mb-3" id="carrito">
+                <ul class="list-group mb-3" >
+                  <div id="carrito"></div>
                   <!-- Aqui agrega Items del carrito x JS -->
                   <li class="list-group-item d-flex justify-content-between bg-light">
                     <div class="text-success">
-                      <h6 class="my-0">Promo code</h6>
-                      <small>CODERHOUSE</small>
+                      <h6 class="my-0">Código</h6>
+                      <small>PROMOCIONAL</small>
                     </div>
-                    
-                    <span class="text-success">−$100</span>
+                    <input type="text" id="code">
+                    <span class="text-success" id="desc"></span>
                   </li>
                   <li class="list-group-item d-flex justify-content-between">
                     <span>Total (USD)</span>
