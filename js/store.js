@@ -61,11 +61,11 @@ setTimeout( function() {
     let promo = 100
     let articulosEnCarro = []
     
+    let bCarro = document.getElementById('bCarro')
     
 
     let carrito = document.getElementById('carrito')
     //function agregarAlCarrito(e) {
-        //    let bCarro = document.getElementById('bCarro')
         //    let total = document.getElementById('total')
         //    let cp = document.getElementById('cp')
         //    let artPorAgregar = productos.find(producto => producto.id == e.target.id)
@@ -213,6 +213,7 @@ setTimeout( function() {
         function renderizarCarrito() {
             let cantArtCarrito = artCarrito.length
             cp.innerText = cantArtCarrito
+            bCarro.innerText = cantArtCarrito
             // Vaciamos todo el html
             DOMcarrito.textContent = '';
             // Quitamos los duplicados
