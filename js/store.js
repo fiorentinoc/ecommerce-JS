@@ -13,7 +13,7 @@ let contenedorProductos = document.getElementById('productos')
 
 setTimeout( function() {
     let productos = sistema.leerTodo()
-    console.log("Productos Cargados : "+ JSON.stringify(productos));
+    //console.log("Productos Cargados : "+ JSON.stringify(productos)); //Controlo si se cargaron los datos con el fetch
     for (const producto of productos){
         if (producto.precio == 0){
             console.log("Consulte Precio")
@@ -65,60 +65,7 @@ setTimeout( function() {
     
 
     let carrito = document.getElementById('carrito')
-    //function agregarAlCarrito(e) {
-        //    let total = document.getElementById('total')
-        //    let cp = document.getElementById('cp')
-        //    let artPorAgregar = productos.find(producto => producto.id == e.target.id)
-    //    console.log('Test: '+artPorAgregar)
-    //    /* let cantU = document.getElementById('inp'+artPorAgregar.id).value */
-    //    cantArtCarrito ++      //Contador de Articulos
-    //    cp.innerText = cantArtCarrito
-    //    
-    //    totalCarr = totalCarr + artPorAgregar.precio
-    //    total.innerText = "$" + totalCarr
-    //    bCarro.innerText = cantArtCarrito
-    //    let cantU = 1
-    //    
-    //    let yahay = articulosEnCarro.indexOf(articulosEnCarro.item)
-    //    if (yahay == -1){
-    //        console.log(articulosEnCarro.artPorAgregar)
-    //        console.log("hay? :"+yahay)
-    //        let obj = {item: artPorAgregar, cant: 1}
-    //        articulosEnCarro.push(obj)
-    //    } else {
-        //        cantU ++
-    //    }
-    //    let subTotal = cantU * artPorAgregar.precio
-    //    //Render de cada articulo incorporado
-    //    /* articulosEnCarro.forEach(carroRender(cantU, subTotal)) */
-    //    
-    //    
-    //    
-    //    console.log(artPorAgregar)
-    //    console.log(typeof(artPorAgregar) )
-    //    
-    //    console.log(articulosEnCarro)
-    //    
-    //}
-
-    function carroRender(art, cantU, subTotal){
-        let item = document.createElement('li')
-        item.className = 'list-group-item d-flex justify-content-between lh-sm'
-        item.innerHTML = `
-        
-        <div>
-        <h6 class="my-0">${art.title}</h6>
-        <small class="text-muted"></small>
-        <small class="text-muted"></small>
-        </div>
-        <small class="text-muted">${cantU}</small>
-                <small class="text-muted">$${art.precio}</small>
-                <span class="text-muted">$${subTotal}</span>
-            
-                `
-        carrito.prepend(item)
-        
-    }
+    
 
 
     const btnFinCom = document.querySelector('#finCom')
@@ -138,68 +85,34 @@ setTimeout( function() {
 
         let artCarrito = [];
         /* const divisa = '€'; */
-        const divisa = 'U$D';
+        const divisa = 'U$D ';
         const DOMitems = document.querySelector('#items');
         const DOMcarrito = document.querySelector('#carrito');
         const DOMtotal = document.querySelector('#total');
-        const DOMbotonVaciar = document.querySelector('#boton-vaciar');
+        
+        const DOMbotonVaciar = document.querySelector('#vaciar');
         const miLocalStorage = window.localStorage;
         let descuento = 0.0
 
         let cp = document.getElementById('cp')
         
-        
-        // Funciones
-        
-        /**
-         * Dibuja todos los productos a partir de la base de datos. No confundir con el carrito
-         */
-        /* function renderizarProductos() {
-            baseDeDatos.forEach((info) => {
-                // Estructura
-                const miNodo = document.createElement('div');
-                miNodo.classList.add('card', 'col-sm-4');
-                // Body
-                const miNodoCardBody = document.createElement('div');
-                miNodoCardBody.classList.add('card-body');
-                // Titulo
-                const miNodoTitle = document.createElement('h5');
-                miNodoTitle.classList.add('card-title');
-                miNodoTitle.textContent = info.nombre;
-                // Imagen
-                const miNodoImagen = document.createElement('img');
-                miNodoImagen.classList.add('img-fluid');
-                miNodoImagen.setAttribute('src', info.imagen);
-                // Precio
-                const miNodoPrecio = document.createElement('p');
-                miNodoPrecio.classList.add('card-text');
-                miNodoPrecio.textContent = `${info.precio}${divisa}`;
-                // Boton 
-                const miNodoBoton = document.createElement('button');
-                miNodoBoton.classList.add('btn', 'btn-primary');
-                miNodoBoton.textContent = '+';
-                miNodoBoton.setAttribute('marcador', info.id);
-                miNodoBoton.addEventListener('click', anyadirProductoAlCarrito);
-                // Insertamos
-                miNodoCardBody.appendChild(miNodoImagen);
-                miNodoCardBody.appendChild(miNodoTitle);
-                miNodoCardBody.appendChild(miNodoPrecio);
-                miNodoCardBody.appendChild(miNodoBoton);
-                miNodo.appendChild(miNodoCardBody);
-                DOMitems.appendChild(miNodo);
-            });
-        } */
+        //--------------------------------------------------------
+        //FUNCIONES
+        //--------------------------------------------------------
         
         /**
-         * Evento para añadir un producto al carrito de la compra
+         * Evento para agregar un producto al carrito
          */
         function agregarAlCarrito(e) {
-            // Anyadimos el Nodo a nuestro carrito
+            // Agrego el Nodo al carrito
             let artPorAgregar = productos.find(producto => producto.id == e.target.id)
             console.log("Agregando: " +artPorAgregar)
             artCarrito.push(artPorAgregar.id)
             console.log("Articulos en carrito :"+artCarrito)
-            //carrito.push(evento.target.getAttribute('marcador'))
+            
+            //Reseteo el codigo de descuento para forzar el recalculo
+            document.getElementById('codeform').reset()
+            document.getElementById('desc').innerText = 0
             // Actualizamos el carrito 
             renderizarCarrito();
             // Actualizar info en localStorage
@@ -208,7 +121,7 @@ setTimeout( function() {
         }
         
         /**
-         * Dibuja todos los productos guardados en el carrito
+         * Renderiza los productos guardados en el carrito
          */
         function renderizarCarrito() {
             let cantArtCarrito = artCarrito.length
@@ -241,33 +154,27 @@ setTimeout( function() {
                                         <tr>
                                             <td>${numeroUnidadesItem} x</td>
                                             <td>${miItem[0].title}</td>
-                                            <td>${miItem[0].precio}${divisa}</td>
-                                            <td>${subTotal}</td>
-                                            <td><div class="btn btn-danger mx-2 eliminar" data-item="${miItem[0].id}"></div></td>
+                                            <td class="text-end"><small>${divisa}${miItem[0].precio}</small></td>
+                                            <td class="text-end">${divisa}${subTotal}</td>
+                                            <td class="text-end"><div class="btn btn-danger mx-2 eliminar" data-item="${miItem[0].id}"></div></td>
                                         </tr>
                                     </table>`;
 
-                // Boton de borrar
-                /* const btnBorrar = document.createElement('button');
-                btnBorrar.classList.add('btn', 'btn-danger', 'mx-2', 'eliminar');
-                btnBorrar.textContent = ''
                 
-                
-                btnBorrar.style.marginLeft = '1rem';
-                btnBorrar.dataset.item = item; */
-                //btnBorrar.addEventListener('click', borrarItemCarrito);
-                
-                //miNodo.appendChild(btnBorrar);
-                // Mezclamos nodos
+                // Agrega el nodo (linea del producto en el carrito)
                 DOMcarrito.prepend(miNodo);
+                //Boton para eliminar producto del carrito
+                const DOMBorrarItem = document.querySelector('.eliminar')
+                DOMBorrarItem.addEventListener('click', borrarItemCarrito)
             });
-
-            // Renderizamos el precio total en el HTML
-            DOMtotal.textContent = calcularTotal();
+            
+            // Renderiza el precio total en el HTML
+            DOMtotal.textContent = divisa + calcularTotal()
         }
         //Cargar CODIGO PROMOCIONAL
         let CODE = document.querySelector('#code')
         CODE.addEventListener('keyup', (e)=>{
+            console.log(e)
             let codeText = e.path[0].value
             if (codeText == "CODER") {
                 descuento = 0.8
@@ -291,6 +198,9 @@ setTimeout( function() {
                 return carritoId != id;
             });
             console.log(artCarrito)
+            document.getElementById('codeform').reset()
+            document.getElementById('desc').innerText = 0
+            recalcularTotal()
             // volvemos a renderizar
             renderizarCarrito();
             // Actualizar info en localStorage
@@ -318,7 +228,8 @@ setTimeout( function() {
         function recalcularTotal() {
             let reto = document.querySelector('#desc').innerHTML
             let t = parseFloat(calcularTotal()) + parseFloat(reto)
-            DOMtotal.textContent = t
+            let tot = divisa + t
+            DOMtotal.textContent = tot
         }
         
         
@@ -326,11 +237,14 @@ setTimeout( function() {
          * Vacia el carrito y lo Renderiza
          */
         function vaciarCarrito() {
-            // Limpiamos los productos guardados
+            // Se borran los productos guardados
             artCarrito = [];
+            //Se resetea codigo de descuento
+            document.getElementById('codeform').reset()
+            document.getElementById('desc').innerText = 0
             // Renderizamos los cambios
             renderizarCarrito();
-            // Borrar localStorage
+            // Se Borra localStorage
             localStorage.clear();
         }
         
@@ -357,8 +271,8 @@ setTimeout( function() {
         }
         
         // Eventos
-        //DOMbotonVaciar.addEventListener('click', vaciarCarrito);
-        
+        DOMbotonVaciar.addEventListener('click', vaciarCarrito);
+        //DOMBorrarItem.addEventListener('click', borrarItemCarrito)
         // Inicio
         //renderizarProductos();
         cargarCarritoDeLocalStorage();

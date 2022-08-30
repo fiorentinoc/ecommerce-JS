@@ -46,7 +46,7 @@
               </button>
               <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav ms-auto">
-                    <a class="nav-link" href="backend.html">Dashboard Backend</a>
+                    <a class="nav-link btn btn-outline-warning" href="backend.html">Dashboard Backend</a>
                     <a class="nav-link" href="#index.html">Inicio</a>
                     <a class="nav-link" href="#about.html">Historia</a>
                     <a class="nav-link active" aria-current="page" href="#">Store</a>
@@ -82,7 +82,7 @@
         
         
         <!-- Modal CARRITO -->
-        <div class="modal fade" id="modalCarrito" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal fade modal-lg" id="modalCarrito" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -94,33 +94,53 @@
                   <span class="text-primary">Cantidad de productos:</span>
                   <span class="badge bg-primary rounded-pill" id="cp">0</span>
                 </h4>
-                <h6 class="d-flex justify-content-between align-items-center mb-3">
+                <ul class="list-group mb-3" >
+                  <li class="list-group-item text-center">
+                    <table class="table table-borderless">
+                      <thead>
+                        <tr class="text-primary">
+                          <th class="text-start">Cant</th>
+                          <th>Producto</th>
+                          <th class="text-end">Precio Unitario</th>
+                          <th class="text-end">Subtotal</th>
+                          <th class="text-end">Eliminar</th>
+                        </tr>
+                      </thead>
+                    </table>
+                  </li>
+                <!-- <h6 class="d-flex justify-content-between align-items-center mb-3">
                   <span class="text-primary">Cant</span>
                   <span class="text-primary">Producto</span>
                   <span class="text-primary">Precio unit</span>
                   <span class="text-primary">Subtotal</span>
                   <span class="text-primary">Eliminar</span>
-                </h6>
-                <ul class="list-group mb-3" >
+                </h6> -->
                   <div id="carrito"></div>
                   <!-- Aqui agrega Items del carrito x JS -->
                   <li class="list-group-item d-flex justify-content-between bg-light">
                     <div class="text-success">
                       <h6 class="my-0">Código</h6>
-                      <small>PROMOCIONAL</small>
+                      <small><pre>PROMOCIONAL </pre></small>
                     </div>
-                    <input type="text" id="code">
-                    <span class="text-success" id="desc"></span>
+                    <form id="codeform">
+                      <input class="form-control form-control-sm" type="text" id="code" aria-describedby="codigohelp">
+                      <div id="codigohelp" class="form-text">
+                        <small>Ingresa aquí tu Código de descuento.</small>
+                      </div>
+                    </form>
+                    <span class="text-success"><pre> Descuento </pre></span>
+                    <span class="text-success" id="desc">0</span>
                   </li>
-                  <li class="list-group-item d-flex justify-content-between">
-                    <span>Total (USD)</span>
+                  <li class="list-group-item d-flex justify-content-between bg-secondary bg-opacity-25">
+                    <span>Total</span>
                     <strong id="total">$0</strong>
                   </li>
                 </ul
               </div>
               <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal" id="vaciar">Vaciar Carrito</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Seguir Comprando</button>
-                <button type="button" class="btn btn-primary" id="finCom">Finalizar Compra</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="finCom">Finalizar Compra</button>
               </div>
             </div>
           </div>

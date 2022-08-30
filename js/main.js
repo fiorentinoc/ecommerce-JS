@@ -58,7 +58,7 @@ function app() {
             console.log('editar')
             console.log(idx)
             console.log(`${idx} ${cat.value} - ${mod.value} - ${precio.value} - ${stk.value} -`)
-            data = { id: parseInt(idx), cat: cat.value, mod: mod.value, precio: parseInt(precio.value), stk: parseInt(stk.value), title: title.value, desc: desc.value, img: img.value }
+            let data = { id: parseInt(idx), cat: cat.value, mod: mod.value, precio: parseInt(precio.value), stk: parseInt(stk.value), title: title.value, desc: desc.value, img: img.value }
             sistema.actualizar(idx, data)
             mostrar(sistema.leerTodo())
         }
