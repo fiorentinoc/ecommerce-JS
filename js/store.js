@@ -126,6 +126,12 @@ setTimeout( function() {
         function renderizarCarrito() {
             let cantArtCarrito = artCarrito.length
             cp.innerText = cantArtCarrito
+            let elemento = document.getElementById('bCarro')
+            if (cantArtCarrito == 0){
+                elemento.className += ' d-none'
+            } else {
+                elemento.classList.remove('d-none')
+            }
             bCarro.innerText = cantArtCarrito
             // Vaciamos todo el html
             DOMcarrito.textContent = '';
@@ -175,7 +181,8 @@ setTimeout( function() {
         let CODE = document.querySelector('#code')
         CODE.addEventListener('keyup', (e)=>{
             console.log(e)
-            let codeText = e.path[0].value
+            let codeText = e.path[0].value.toUpperCase()
+            e.path[0].value = codeText
             if (codeText == "CODER") {
                 descuento = 0.8
             } else {
@@ -246,6 +253,13 @@ setTimeout( function() {
             renderizarCarrito();
             // Se Borra localStorage
             localStorage.clear();
+            Swal.fire({
+                position: 'top',
+                icon: 'success',
+                title: 'Haz vaciado tu carrito!',
+                showConfirmButton: false,
+                timer: 1500
+            })
         }
         
         /**
