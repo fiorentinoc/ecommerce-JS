@@ -27,7 +27,7 @@ setTimeout( function() {
                     <h5>${producto.title}</h5>
                     <p class="card-text">${producto.desc}<span >...<a class="vermas" href="#">Ver más</a></span></p>
                     <div class="d-flex justify-content-between align-items-center">
-                        <small class="text-white precio">U$D ${producto.precio}</small>
+                        <div class="text-white precio">U$D ${producto.precio}</div>
                         <div class="btn-group">
                             <button type="button" data-bs-toggle="modal" data-bs-target="#modalCarrito" class="comprar btn btn-sm btn-outline-secondary btn-custom1" id="c${producto.id}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gem" viewBox="0 0 16 16">
@@ -111,14 +111,11 @@ setTimeout( function() {
          * Evento para Comprar
          */
         function comprar(e) {
-            let idc = e.target.id[1]
-            console.log(e.target.id[1])
             // Agrego el Nodo al carrito
             let artPorAgregar = productos.find(producto => producto.id == e.target.id[1])
             console.log("Agregando: " +artPorAgregar)
             artCarrito.push(artPorAgregar.id)
             console.log("Articulos en carrito :"+artCarrito)
-            
             //Reseteo el codigo de descuento para forzar el recalculo
             document.getElementById('codeform').reset()
             document.getElementById('desc').innerText = 0
