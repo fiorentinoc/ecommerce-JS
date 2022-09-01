@@ -7,6 +7,7 @@
     <title>Fiorentino-TP</title>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" href="./css/customBack.css">
 </head>
 <body>
     <header>
@@ -20,8 +21,8 @@
     <main>
         <div class="w3-container w3-padding-64">
             <!-- <button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-teal w3-large">Crear Item</button>  OTRA FORMA DEL MISMO BOTON -->
-            <button id="btnCrearItem" class="w3-button w3-teal w3-large">Crear Item</button>
-            <button id="btnLeerTodo" class="w3-button w3-teal w3-large">Leer Todo</button>
+            <button id="btnCrearItem" class="w3-button w3-teal w3-large">Crear Producto</button>
+            <button id="btnLeerTodo" class="w3-button w3-teal w3-large">Todos los Productos</button>
             <button id="btnFiltro" class="w3-button w3-teal w3-large">Filtrar</button>
             <button id="btnBuscar" class="w3-button w3-teal w3-large">Buscar</button>
         </div>
@@ -111,13 +112,7 @@
                             <option value="aros">Aros</option>
                             <option value="dijes">Dijes</option>
                         </select>
-                        <!-- <label><b>Modelo</b></label>
-                        <input class="w3-input  w3-margin-bottom" type="text" placeholder="Ingrese Modelo" name="mod" required id="mod">
-                        <label><b>Precio</b></label>
-                        <input class="w3-input  w3-margin-bottom" type="text" placeholder="Ingrese Precio de venta" name="precio" required id="precio">
-                        <label><b>Stock</b></label>
-                        <input class="w3-input  w3-margin-bottom" type="text" placeholder="Ingrese Stock del producto" name="stk" required id="stk">
-                         -->
+                        
                     </div>
                     <div class="w3-container w3-border-top w3-padding-16 w3-light-grey w3-right">
                         <button onclick="document.getElementById('id02').style.display='none'" type="button" class="w3-button w3-red">Cancelar</button>
@@ -143,14 +138,15 @@
     </main>
     <div class="w3-panel w3-pale-green w3-bottombar w3-topbar w3-border-green w3-border">
         
-        <p>Los datos son leidos desde el Localstorage y si no hay datos, se crea un array por primera vez.</p>
-        <p>Podemos:</p>
+        <p>Los datos son leídos desde el Localstorage. Si no hay datos, se crea un array desde la API. (módulo ALAB.js)</p>
+        <p>Este Dashboard permite:</p>
             <ul>
-                <li>Agregar artículos desde el boton "Crear Item"</li>
-                <li>"Leer Todo" traerá todos los datos la Base</li>
-                <li>"Filtrar": Se puede filtrar por categoría</li>
-                <li>Desde acciones se puede "Editar" y "Borrar" los artículos indicados.</li>
-                <li>Los cambios serán guardados en el LocalStorage.</li>
+                <li>Agregar Productos nuevos desde el boton "Crear Producto"</li>
+                <li>Leer "Todos los Productos" mostrará todos los datos la DB</li>
+                <li>"Filtrar" facilita filtrar por categorías</li>
+                <li>"Buscar" muestra los productos con un string específico</li>
+                <li>Desde acciones se puede "Editar" y "Borrar" los artículos indicados</li>
+                <li>Los cambios son guardados en el LocalStorage y reflejados en el Frontend del Store</li>
             </ul>
     </div>
 

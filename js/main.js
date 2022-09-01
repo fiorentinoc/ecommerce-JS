@@ -31,8 +31,8 @@ function app() {
                                 <td>${articulo.desc}</td>
                                 <td>${articulo.img}</td>
                                 <td>
-                                    <button class="btnEditar w3-button w3-white w3-border w3-tiny w3-border-green w3-round-large w3-text-green w3-hover-green">Editar </button>
-                                    <button class="btnBorrar w3-button w3-white w3-border w3-tiny w3-border-red w3-round-large w3-text-red w3-hover-red">Borrar</button>
+                                    <button class="btnEditar w3-button w3-white w3-border w3-tiny w3-border-green w3-round-large w3-text-green w3-hover-green my-1">Editar </button>
+                                    <button class="btnBorrar w3-button w3-white w3-border w3-tiny w3-border-red w3-round-large w3-text-red w3-hover-red my-1">Borrar</button>
                                 </td>
                             </tr>`
         });
@@ -93,12 +93,12 @@ function app() {
     //////////// BUSCAR //////////////
     btnBuscar.addEventListener('click', (e)=>{
         //e.preventDefault()
-        const inputValue = "pepe"
+        
         Swal.fire({
             title: 'Ingrese su búsqueda',
             input: 'text',
             inputLabel: 'Palabra buscada',
-            inputValue: inputValue,
+            //inputValue: inputValue,
             showCancelButton: true,
             inputValidator: (value) => {
                 if (!value) {
@@ -110,7 +110,6 @@ function app() {
         .then(palabra => {
             if (palabra.value) {
                 let cadena = palabra.value
-                //Swal.fire(cadena)
                 mostrar(sistema.buscar(cadena))
             }
         })
@@ -181,13 +180,6 @@ function app() {
 
     console.log(sistema.leerTodo())
     mostrar(sistema.leerTodo())
- 
-    // Metodo para buscar x categoria
-    //let bus = prompt("Indique string a buscar > ")
-    //console.log(sistema.buscar(bus))
-
-    
- 
     
 }
 app();
