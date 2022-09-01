@@ -125,11 +125,17 @@ export class ALAB{
         }
     }
 
-    buscarCat(str){
+    /* buscarCat(str){
         let busqueda = this.#data.find((el) => el.cat === str)
         return busqueda
+    } */
+    
+    buscar(str){
+        let busqueda = this.#data.filter((el) => el.cat.includes(str) || el.mod.includes(str) || el.title.includes(str)|| el.desc.includes(str))
+        return busqueda
     }
-
+    
+    
     posicionId(id){
         console.log("Buscar en Array posicion del id: " + id)
         id = parseInt(id)

@@ -84,11 +84,39 @@ function app() {
 
     btnFiltrar.addEventListener('click', (e)=>{
         e.preventDefault()
-        dataFiltrada = sistema.filtrar(cate.value)
+        let dataFiltrada = sistema.filtrar(cate.value)
         console.log(dataFiltrada)
         mostrar(dataFiltrada)
         document.getElementById('id02').style.display='none'
     })
+
+    //////////// BUSCAR //////////////
+    btnBuscar.addEventListener('click', (e)=>{
+        //e.preventDefault()
+        const inputValue = "pepe"
+        Swal.fire({
+            title: 'Ingrese su búsqueda',
+            input: 'text',
+            inputLabel: 'Palabra buscada',
+            inputValue: inputValue,
+            showCancelButton: true,
+            inputValidator: (value) => {
+                if (!value) {
+                    return 'Ingrese su búsqueda o Cancéle!'
+                }
+            }
+        })
+        
+        .then(palabra => {
+            if (palabra.value) {
+                let cadena = palabra.value
+                //Swal.fire(cadena)
+                mostrar(sistema.buscar(cadena))
+            }
+        })
+    })
+
+ 
 
     //Funcion para dar funcionalidad a btn EDITAR y BORRAR de cada articulo 
     const on = (Element, Event, selector, handler) => {
@@ -153,13 +181,13 @@ function app() {
 
     console.log(sistema.leerTodo())
     mostrar(sistema.leerTodo())
-/* 
+ 
     // Metodo para buscar x categoria
-    let bus = prompt("Indique la categoria a BUSCAR (aros/anillos/dijes)>")
-    console.log(sistema.buscarCat(bus))
+    //let bus = prompt("Indique string a buscar > ")
+    //console.log(sistema.buscar(bus))
 
     
- */
+ 
     
 }
 app();
