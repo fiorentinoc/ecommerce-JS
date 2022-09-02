@@ -28,5 +28,7 @@ Si existen productos repetidos, se sumarizan en una única línea.
 El Front fué pretendió ser encarado como un desarrollo clásico del tipo Estructurado, mientras que 
 el Control de Productos desde el Dasboard fué centralizado con el uso de la clase ALAB.js pretendiendo ejemplificar un desarrollo del tipo orientado a objetos.
 
+Comentarios, código comentado y test point de consola se dejaron como guias para la comprension del código.
+
 
 Tecnologías utilizadas: HTML5-CSS3-BOOTSTRAP5-SASS-W3CSS-JAVASCRIPT(ECMASCRIPT6)
